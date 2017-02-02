@@ -1,0 +1,62 @@
+ABM research
+
+- figure out how Notch1-DLL4 and VEGF signalling within/between cells is modelled
+	- some main thing is bombarded by this input
+- ABM was built using Netlogo -- should I just use that too?
+- each cell is composed of a nucleus connected to 8 "membrane nodes"
+	- a cell is represented by a 10 x 10 um pixel
+ 
+- links in graph need to be measured, starting out at the average cell surface area ECsa
+	- movement of links is important and is tracked
+
+- may want to look up data vis in python -- it kind of sounds like an interactive webpage might be nice?
+
+- see results for ideal alpha and beta values
+
+
+- each time step is an iteration of a loop
+- three main things will happen per iteration:
+	- secretion and binding
+	- rate adjustment
+	- phenotype switch and chemotaxis
+- "pixels" will be indices in a 2D array
+- array will be a series of structs, which will include both the cell struct and additional protein info?
+	- need to have VEGF concentration info in each pixel 
+
+
+cell struct
+ - 1 nuclear node connected to 8 membrance nodes (mNode)
+ 	- mNode produces sVEGFR1, need a variable for that
+ - pointers between all of these
+ - size of cell -- should be around 962 x 10^8 cm^2, the average EC surface area (Wait WHAT??)
+ - movement?
+ 	- probably will calculate movability based on other factors, can set movability "number" on a given scale (maybe like 0.0 - 1.0?)
+
+ secretion and binding
+ - if pixel.VEGF > 0 && an mNode with VEGFR2 or an mNode with membrane bound VEGFR1 or sVEGFR1, then binding will occur until limiting factor
+ 	- note: when VEGF binds to VEGFR2, we get phosphorylated VEGFR2 (pR2)
+ 		- this increases amount of DLL4 production in that given cell (see equation 1)
+ 		- note: do I need to have a set value for k? is that a problem? can always make one up if need be for now, just to get demo going
+ 			- can probably lookup degradation rate of DLL4
+ 	- when sVEGFR1 or mVEGFR2 are bound to ligands, nothing else happens
+
+
+ phenotype switch and chemotaxis
+ - if cell.pr2 > ß, phenotype = tip cell, otherwise, stays quiescent
+ - choose mNode with highest pR2, move towards neighbor pixel with highest VEGEF
+ -  
+
+
+ Questions:
+ - should I have a visualization? what should it be? each pixel is outputted, in a grid?
+ 	- if we do this, should I just make an interactive webpage type thing?
+ - nixed NetLogo
+ - make up value for k?
+ - any news on data sets or anything like that?
+ thing, but mae
+ Notes:
+ - keep the 10 um distances
+ -early April laf
+ - start with ditsance thing, but should be able to change it later
+ 
+
